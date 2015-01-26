@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+    <head>
+        <title>New Tab</title>
+        
+        <link rel="stylesheet" href="css/popup-style.css">
+        <link rel="stylesheet" href="font-awesome-4.1.0/css/font-awesome.css">
+    </head>
+    <body>
+        <i class="fa fa-ellipsis-v settings"></i>
+        <div class="settingsPanel from-left">
+            <div class="settingsContainer">
+                <div class="settingsHeader">SITES BEING TRACKED</div>
+                <input type="text" class="tracksiteInput" id = "firstSite">
+                <input type="text" class="tracksiteInput" id = "secondSite">
+                <input type="text" class="tracksiteInput" id = "thirdSite">
+                <input type="text" class="tracksiteInput" id = "fourthSite">
+                <input type="text" class="tracksiteInput" id = "fifthSite">
+
+            </div>  
+        </div>
+        <div class="container">
+           <!---  <h1>Today, you have lost</h1> -->
+            <div id = "actualTime"></div>
+            <h1 id ="websites"></h1>
+            <canvas id = "myChart"></canvas>
+        </div>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/popup.js"></script>
+        <script src="Chart.js" ></script>
+    </body>
+</html>
