@@ -194,6 +194,19 @@ h1{
   margin-top: 50px;
 }
 
+#secondSite {
+  transition-delay : 0.08s;
+}
+
+#thirdSite{
+  transition-delay : 0.085s;
+}
+#fourthSite{
+  transition-delay : 0.095s;
+}
+#fifthSite{
+  transition-delay : 0.15s;
+}
 .done {
   display : block;
   cursor : pointer;

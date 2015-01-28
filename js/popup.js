@@ -100,6 +100,7 @@ $(document).ready(function(){
                 $('.tracksiteInput').addClass("inputEnabled");
                 $('.done').remove();
                 $('.editBtn').remove();
+                $('.lockBtn').remove();
                 $('.buttonsContainer').append("<img src = \"images/button_LOCK.png\" class = \"lockBtn\"><img src = \"images/button_OK.png\" class = \"done\">");
             });
 
