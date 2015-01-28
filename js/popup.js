@@ -21,20 +21,20 @@ $(document).ready(function(){
     if(backgroundPage !== null && backgroundPage.isFirstRun) {
         $('.settingsPanel').addClass('is-visible');
         $('.tracksiteInput').addClass('inputEnabled');
-        $('.settingsContainer').append("<img src = \"images/button_OK.png\" class = \"done\">");
+        $('.buttonsContainer').append("<img src = \"images/button_OK.png\" class = \"done\">");
     } else {
         $('.done').remove();
         $('.tracksiteInput').css({"border": "none"});
         $('.tracksiteInput').prop("disabled", true);
         $('.tracksiteInput').addClass('inputDisabled');
-        $('.settingsContainer').append("<img src = \"images/button_EDIT.png\" class = \"editBtn\">");
+        $('.buttonsContainer').append("<img src = \"images/button_EDIT.png\" class = \"editBtn\">");
     }
 
     $('.editBtn').on('click', function(){
         $('.tracksiteInput').prop("disabled", false);
         $('.tracksiteInput').addClass("inputEnabled");
         $('.editBtn').remove();
-        $('.settingsContainer').append("<img src = \"images/button_OK.png\" class = \"done\">");
+        $('.buttonsContainer').append("<img src = \"images/button_LOCK.png\" class = \"lockBtn\"><img src = \"images/button_OK.png\" class = \"done\">");
     });
 
     // Try to update the data from the localStorage if we can about the sites that are being tracked

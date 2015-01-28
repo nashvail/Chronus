@@ -188,16 +188,31 @@ h1{
   outline : none;
 }
 
-.done {
-  display : block;
-  margin : 80px auto 0px auto;
-  cursor : pointer;
+.buttonsContainer {
+  width : 100%;
+  height : auto;
+  margin-top: 50px;
 }
 
-.editBtn {
+.done {
   display : block;
   cursor : pointer;
-  margin : 80px auto 0px auto;
+  float : right;
+  margin-right: 37%;
+}
+
+.lockBtn{
+  display : block;
+  float : left;
+  cursor : pointer;
+  margin-left: 37%;
+}
+
+
+.editBtn {
+  display :block;
+  cursor : pointer;
+  margin : 0px auto 0px auto;
 }
 
 
