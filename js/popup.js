@@ -94,12 +94,13 @@ $(document).ready(function(){
             $('.tracksiteInput').addClass('inputDisabled');
             $('.tracksiteInput').prop("disabled", true);
             $('.done').remove();
-            $('.settingsContainer').append("<img src = \"images/button_EDIT.png\" class = \"editBtn\">").on('click', function(){
+            $('.lockBtn').remove();
+            $('.buttonsContainer').append("<img src = \"images/button_EDIT.png\" class = \"editBtn\">").on('click', function(){
                 $('.tracksiteInput').prop("disabled", false);
                 $('.tracksiteInput').addClass("inputEnabled");
                 $('.done').remove();
                 $('.editBtn').remove();
-                $('.settingsContainer').append("<img src = \"images/button_OK.png\" class = \"done\">");
+                $('.buttonsContainer').append("<img src = \"images/button_LOCK.png\" class = \"lockBtn\"><img src = \"images/button_OK.png\" class = \"done\">");
             });
 
         }
