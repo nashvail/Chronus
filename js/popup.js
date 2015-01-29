@@ -26,12 +26,14 @@ $(document).ready(function(){
         $('.done').remove();
         $('.tracksiteInput').css({"border": "none"});
         $('.tracksiteInput').prop("disabled", true);
+        $('.tracksiteInput').removeClass('inputEnabled');
         $('.tracksiteInput').addClass('inputDisabled');
         $('.buttonsContainer').append("<img src = \"images/button_EDIT.png\" class = \"editBtn\">");
     }
 
     $('.editBtn').on('click', function(){
         $('.tracksiteInput').prop("disabled", false);
+        $('.tracksiteInput').removeClass('inputDisabled');
         $('.tracksiteInput').addClass("inputEnabled");
         $('.editBtn').remove();
         $('.buttonsContainer').append("<img src = \"images/button_LOCK.png\" class = \"lockBtn\"><img src = \"images/button_OK.png\" class = \"done\">");
@@ -102,6 +104,7 @@ $(document).ready(function(){
             $('.lockBtn').remove();
             $('.buttonsContainer').append("<img src = \"images/button_EDIT.png\" class = \"editBtn\">").on('click', function(){
                 $('.tracksiteInput').prop("disabled", false);
+                $('.tracksiteInput').removeClass('inputDisabled');
                 $('.tracksiteInput').addClass("inputEnabled");
                 $('.done').remove();
                 $('.editBtn').remove();
@@ -113,6 +116,20 @@ $(document).ready(function(){
 
         if($(event.target).is('.settingsPanel') && !chrome.extension.getBackgroundPage().isFirstRun) {
             $('.settingsPanel').removeClass('is-visible');
+            $('.editBtn').remove();
+            $('.tracksiteInput').removeClass('inputEnabled');
+            $('.tracksiteInput').addClass('inputDisabled');
+            $('.tracksiteInput').prop("disabled", true);
+            $('.done').remove();
+            $('.lockBtn').remove();
+            $('.buttonsContainer').append("<img src = \"images/button_EDIT.png\" class = \"editBtn\">").on('click', function(){
+                $('.tracksiteInput').prop("disabled", false);
+                $('.tracksiteInput').addClass("inputEnabled");
+                $('.done').remove();
+                $('.editBtn').remove();
+                $('.lockBtn').remove();
+                $('.buttonsContainer').append("<img src = \"images/button_LOCK.png\" class = \"lockBtn\"><img src = \"images/button_OK.png\" class = \"done\">");
+            });
         }
     });
 
@@ -148,7 +165,6 @@ $(document).ready(function(){
             }
         }
 
-        console.log(forValues.toString());
 
         var barChartData = {
                 labels : [].concat(forLabels),
