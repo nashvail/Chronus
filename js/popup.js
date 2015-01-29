@@ -21,7 +21,9 @@ $(document).ready(function(){
     if(backgroundPage !== null && backgroundPage.isFirstRun) {
         $('.settingsPanel').addClass('is-visible');
         $('.tracksiteInput').addClass('inputEnabled');
+        $('.lockBtn').remove();
         $('.buttonsContainer').append("<img src = \"images/button_OK.png\" class = \"done\">");
+        $('.done').css({"float" : "none" , "margin" : "0 auto"})
     } else {
         $('.done').remove();
         $('.tracksiteInput').css({"border": "none"});
@@ -74,6 +76,7 @@ $(document).ready(function(){
     $('.settings').on('click', function(event){
         $('.settingsPanel').addClass('is-visible');
     });
+
 
     $('.settingsPanel').on('click', function(event){
         // This function registers click on the side panel
@@ -131,6 +134,18 @@ $(document).ready(function(){
                 $('.editBtn').remove();
                 $('.lockBtn').remove();
                 $('.buttonsContainer').append("<img src = \"images/button_LOCK.png\" class = \"lockBtn\"><img src = \"images/button_OK.png\" class = \"done\">");
+            });
+        }
+
+        if($(event.target).is('.lockBtn')) {
+            vex.defaultOptions.className = 'vex-theme-top';
+            vex.dialog.confirm({
+                message: 'You sure? <br/> <br/> Clicking OK will permanently lock list of your choices, disallowing any further edits. <br/>',
+                callback : function(value){
+                    if(value){
+                        alert("this is something that I can't imagine of ");
+                    }
+                }
             });
         }
     });
