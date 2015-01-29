@@ -76,7 +76,7 @@ $(document).ready(function(){
     $('.settingsPanel').on('click', function(event){
         // This function registers click on the side panel
         if($(event.target).is('.done')) { 
-            $('.settingsPanel').removeClass('is-visible');
+            // $('.settingsPanel').removeClass('is-visible');
             $('.editBtn').remove();
 
             var firstSiteBeingTracked = document.getElementById("firstSite").value;
@@ -91,6 +91,11 @@ $(document).ready(function(){
             chrome.storage.local.set({"trackData" : sitesBeingTrackedStorable}, function(){});
             chrome.extension.getBackgroundPage().isFirstRun = false;
             $('.tracksiteInput').removeClass('inputEnabled');
+            $('.tracksiteInput').addClass('inputSaved');
+            var delay = 300;
+            setTimeout(function() {
+                $('.tracksiteInput').removeClass('inputSaved');
+            }, delay);
             $('.tracksiteInput').addClass('inputDisabled');
             $('.tracksiteInput').prop("disabled", true);
             $('.done').remove();
