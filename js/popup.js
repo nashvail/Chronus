@@ -21,7 +21,9 @@ $(document).ready(function(){
     if(backgroundPage !== null && backgroundPage.isFirstRun) {
         $('.settingsPanel').addClass('is-visible');
         $('.tracksiteInput').addClass('inputEnabled');
+        $('.lockBtn').remove();
         $('.buttonsContainer').append("<img src = \"images/button_OK.png\" class = \"done\">");
+        $('.done').css({"float" : "none" , "margin" : "0 auto"})
     } else {
         $('.done').remove();
         $('.tracksiteInput').css({"border": "none"});
@@ -138,7 +140,12 @@ $(document).ready(function(){
         if($(event.target).is('.lockBtn')) {
             vex.defaultOptions.className = 'vex-theme-top';
             vex.dialog.confirm({
-                message: 'You sure? <br/> <br/> Clicking OK will permanently lock your choices, disallowing any further edits. <br/>'
+                message: 'You sure? <br/> <br/> Clicking OK will permanently lock list of your choices, disallowing any further edits. <br/>',
+                callback : function(value){
+                    if(value){
+                        alert("this is something that I can't imagine of ");
+                    }
+                }
             });
         }
     });
