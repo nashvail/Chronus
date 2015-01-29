@@ -76,7 +76,7 @@ $(document).ready(function(){
     $('.settingsPanel').on('click', function(event){
         // This function registers click on the side panel
         if($(event.target).is('.done')) { 
-            $('.settingsPanel').removeClass('is-visible');
+            // $('.settingsPanel').removeClass('is-visible');
             $('.editBtn').remove();
 
             var firstSiteBeingTracked = document.getElementById("firstSite").value;
