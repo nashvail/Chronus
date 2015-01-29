@@ -91,6 +91,11 @@ $(document).ready(function(){
             chrome.storage.local.set({"trackData" : sitesBeingTrackedStorable}, function(){});
             chrome.extension.getBackgroundPage().isFirstRun = false;
             $('.tracksiteInput').removeClass('inputEnabled');
+            $('.tracksiteInput').addClass('inputSaved');
+            var delay = 300;
+            setTimeout(function() {
+                $('.tracksiteInput').removeClass('inputSaved');
+            }, delay);
             $('.tracksiteInput').addClass('inputDisabled');
             $('.tracksiteInput').prop("disabled", true);
             $('.done').remove();
