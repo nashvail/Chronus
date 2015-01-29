@@ -75,6 +75,7 @@ $(document).ready(function(){
         $('.settingsPanel').addClass('is-visible');
     });
 
+
     $('.settingsPanel').on('click', function(event){
         // This function registers click on the side panel
         if($(event.target).is('.done')) { 
@@ -131,6 +132,13 @@ $(document).ready(function(){
                 $('.editBtn').remove();
                 $('.lockBtn').remove();
                 $('.buttonsContainer').append("<img src = \"images/button_LOCK.png\" class = \"lockBtn\"><img src = \"images/button_OK.png\" class = \"done\">");
+            });
+        }
+
+        if($(event.target).is('.lockBtn')) {
+            vex.defaultOptions.className = 'vex-theme-top';
+            vex.dialog.confirm({
+                message: 'You sure? <br/> <br/> Clicking OK will permanently lock your choices, disallowing any further edits. <br/>'
             });
         }
     });
