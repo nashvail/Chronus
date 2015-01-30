@@ -151,7 +151,7 @@ $(document).ready(function(){
         if($(event.target).is('.lockBtn')) {
             vex.defaultOptions.className = 'vex-theme-top';
             vex.dialog.confirm({
-                message: 'You sure? <br/> <br/> Clicking OK will permanently lock list of your choices, disallowing any further edits. <br/>',
+                message: 'You sure? <br/> <br/> Clicking OK will permanently lock list of your choices, disallowing any further edits. <br/> You cannot undo this action.',
                 callback : function(value){
                     if(value){
                         chrome.storage.local.set({"sitesLocked" : true}, function(){});
