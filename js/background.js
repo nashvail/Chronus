@@ -45,6 +45,7 @@ chrome.runtime.onInstalled.addListener(function(details){
         data[todayStorageName] = totalTimeOnWebsites;
         data["today"] = numDaysSinceUTC();
         data["trackData"] = JSON.stringify(websitesToTrack);
+        data["sitesLocked"] = false;
         chrome.storage.local.set(data, function(){});
     }
 });
