@@ -81,9 +81,6 @@ $(document).ready(function(){
     $('.settingsPanel').on('click', function(event){
         // This function registers click on the side panel
         if($(event.target).is('.done')) { 
-            if(chrome.extension.getBackgroundPage().isFirstRun){
-                $('.settingsPanel').removeClass('is-visible');
-            }
             $('.editBtn').remove();
 
             var firstSiteBeingTracked = document.getElementById("firstSite").value;
@@ -116,6 +113,9 @@ $(document).ready(function(){
                 $('.lockBtn').remove();
                 $('.buttonsContainer').append("<img src = \"images/button_LOCK.png\" class = \"lockBtn\"><img src = \"images/button_OK.png\" class = \"done\">");
             });
+            if(chrome.extension.getBackgroundPage().isFirstRun){
+                $('.settingsPanel').removeClass('is-visible');
+            }
 
         }
 
