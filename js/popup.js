@@ -8,7 +8,8 @@ var barSpacing = 10;
 var timeQuotes = ["when you kill time, remember that it has no resurrection", 
     "the trouble is, you think you have time",
     "time is what we want most, but what we use worst",
-    "wasting your time is the subtlest form of suicide"
+    "wasting your time is the subtlest form of suicide",
+    "It is your life, and its ending one minute at a time"
 ];
 
 $(document).ready(function(){
@@ -18,28 +19,32 @@ $(document).ready(function(){
       backgroundPage = chrome.extension.getBackgroundPage();  
     }
 
-    if(backgroundPage !== null && backgroundPage.isFirstRun) {
-        $('.settingsPanel').addClass('is-visible');
-        $('.tracksiteInput').addClass('inputEnabled');
-        $('.lockBtn').remove();
-        $('.buttonsContainer').append("<img src = \"images/button_OK.png\" class = \"done\">");
-        $('.done').css({"float" : "none" , "margin" : "0 auto"})
-    } else {
-        $('.done').remove();
-        $('.tracksiteInput').css({"border": "none"});
-        $('.tracksiteInput').prop("disabled", true);
-        $('.tracksiteInput').removeClass('inputEnabled');
-        $('.tracksiteInput').addClass('inputDisabled');
-        $('.buttonsContainer').append("<img src = \"images/button_EDIT.png\" class = \"editBtn\">");
-    }
+    chrome.storage.local.get("sitesLocked", function(result){
+        if(backgroundPage !== null && backgroundPage.isFirstRun) {
+            $('.settingsPanel').addClass('is-visible');
+            $('.tracksiteInput').addClass('inputEnabled');
+            $('.lockBtn').remove();
+            $('.buttonsContainer').append("<img src = \"images/button_OK.png\" class = \"done\">");
+            $('.done').css({"float" : "none" , "margin" : "0 auto"})
+        }else if(result.sitesLocked){
+            //remove all the buttons 
+            $('.done').remove();
+            $('.editBtn').remove();
+            $('.lockBtn').remove();
+            $('.tracksiteInput').removeClass("inputEnabled");
+            $('.tracksiteInput').addClass("inputDisabled");
+            $('.tracksiteInput').prop("disabled", true);
+        } else {
+            $('.done').remove();
+            $('.tracksiteInput').css({"border": "none"});
+            $('.tracksiteInput').prop("disabled", true);
+            $('.tracksiteInput').removeClass('inputEnabled');
+            $('.tracksiteInput').addClass('inputDisabled');
+            $('.buttonsContainer').append("<img src = \"images/button_EDIT.png\" class = \"editBtn\">");
+        }
 
-    $('.editBtn').on('click', function(){
-        $('.tracksiteInput').prop("disabled", false);
-        $('.tracksiteInput').removeClass('inputDisabled');
-        $('.tracksiteInput').addClass("inputEnabled");
-        $('.editBtn').remove();
-        $('.buttonsContainer').append("<img src = \"images/button_LOCK.png\" class = \"lockBtn\"><img src = \"images/button_OK.png\" class = \"done\">");
     });
+
 
     // Try to update the data from the localStorage if we can about the sites that are being tracked
     if(chrome.extension.getBackgroundPage().isFirstRun){
@@ -82,6 +87,9 @@ $(document).ready(function(){
         // This function registers click on the side panel
         if($(event.target).is('.done')) { 
             $('.editBtn').remove();
+            if(chrome.extension.getBackgroundPage().isFirstRun){
+                $('.settingsPanel').removeClass('is-visible');
+            }
 
             var firstSiteBeingTracked = document.getElementById("firstSite").value;
             var secondSiteBeingTracked = document.getElementById("secondSite").value;
@@ -113,40 +121,60 @@ $(document).ready(function(){
                 $('.lockBtn').remove();
                 $('.buttonsContainer').append("<img src = \"images/button_LOCK.png\" class = \"lockBtn\"><img src = \"images/button_OK.png\" class = \"done\">");
             });
-            if(chrome.extension.getBackgroundPage().isFirstRun){
-                $('.settingsPanel').removeClass('is-visible');
-            }
 
         }
 
         if($(event.target).is('.settingsPanel') && !chrome.extension.getBackgroundPage().isFirstRun) {
-            $('.settingsPanel').removeClass('is-visible');
-            $('.editBtn').remove();
-            $('.tracksiteInput').removeClass('inputEnabled');
-            $('.tracksiteInput').addClass('inputDisabled');
-            $('.tracksiteInput').prop("disabled", true);
-            $('.done').remove();
-            $('.lockBtn').remove();
-            $('.buttonsContainer').append("<img src = \"images/button_EDIT.png\" class = \"editBtn\">").on('click', function(){
-                $('.tracksiteInput').prop("disabled", false);
-                $('.tracksiteInput').addClass("inputEnabled");
-                $('.done').remove();
-                $('.editBtn').remove();
-                $('.lockBtn').remove();
-                $('.buttonsContainer').append("<img src = \"images/button_LOCK.png\" class = \"lockBtn\"><img src = \"images/button_OK.png\" class = \"done\">");
+            chrome.storage.local.get("sitesLocked", function(result){
+                if(!result.sitesLocked) {
+                    $('.settingsPanel').removeClass('is-visible');
+                    $('.editBtn').remove();
+                    $('.tracksiteInput').removeClass('inputEnabled');
+                    $('.tracksiteInput').addClass('inputDisabled');
+                    $('.tracksiteInput').prop("disabled", true);
+                    $('.done').remove();
+                    $('.lockBtn').remove();
+                    $('.buttonsContainer').append("<img src = \"images/button_EDIT.png\" class = \"editBtn\">").on('click', function(){
+                        $('.tracksiteInput').prop("disabled", false);
+                        $('.tracksiteInput').addClass("inputEnabled");
+                        $('.done').remove();
+                        $('.editBtn').remove();
+                        $('.lockBtn').remove();
+                        $('.buttonsContainer').append("<img src = \"images/button_LOCK.png\" class = \"lockBtn\"><img src = \"images/button_OK.png\" class = \"done\">");
+                    });
+                }else{
+                    $('.settingsPanel').removeClass('is-visible');
+                }
+
             });
         }
 
         if($(event.target).is('.lockBtn')) {
             vex.defaultOptions.className = 'vex-theme-top';
             vex.dialog.confirm({
-                message: 'You sure? <br/> <br/> Clicking OK will permanently lock list of your choices, disallowing any further edits. <br/>',
+                message: 'You sure? <br/> <br/> Clicking OK will permanently lock list of your choices, disallowing any further edits. <br/> You cannot undo this action.',
                 callback : function(value){
                     if(value){
-                        alert("this is something that I can't imagine of ");
+                        chrome.storage.local.set({"sitesLocked" : true}, function(){});
+                        $('.editBtn').remove();
+                        $('.lockBtn').remove();
+                        $('.done').remove();
+                        $('.tracksiteInput').removeClass("inputEnabled");
+                        $('.tracksiteInput').addClass("inputDisabled");
+                        $('.tracksiteInput').prop("disabled", true);
                     }
                 }
             });
+        }
+
+        if($(event.target).is('.editBtn')){
+            $('.tracksiteInput').prop("disabled", false);
+            $('.tracksiteInput').removeClass('inputDisabled');
+            $('.tracksiteInput').addClass("inputEnabled");
+            $('.editBtn').remove();
+            $('.lockBtn').remove();
+            $('.done').remove();
+            $('.buttonsContainer').append("<img src = \"images/button_LOCK.png\" class = \"lockBtn\"><img src = \"images/button_OK.png\" class = \"done\">");
         }
     });
 
