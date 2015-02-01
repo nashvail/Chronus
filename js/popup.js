@@ -8,7 +8,8 @@ var barSpacing = 10;
 var timeQuotes = ["when you kill time, remember that it has no resurrection", 
     "the trouble is, you think you have time",
     "time is what we want most, but what we use worst",
-    "wasting your time is the subtlest form of suicide"
+    "wasting your time is the subtlest form of suicide",
+    "It is your life, and its ending one minute at a time"
 ];
 
 $(document).ready(function(){
