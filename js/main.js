@@ -1,7 +1,5 @@
 // Stores the width of each bar in pixels
 var barWidth = 15;
-// Stores the spacing between each line bar in pixels
-var barSpacing = 10;
 
 
 // Quotes about wastage of time
@@ -233,11 +231,11 @@ $(document).ready(function(){
             scaleShowGridLines : false,
             showScale : false,
             showTooltips :false,
-            barValueSpacing  : 13
+            barValueSpacing  : 5
         });
 
         var totalWidthBars = barWidth * barChartData.getNumData();
-        var totalWidthSpacing = barSpacing * (barChartData.getNumData() - 1);
+        var totalWidthSpacing = 8 * (barChartData.getNumData() - 1);
         var totalWidthChart = totalWidthBars + totalWidthSpacing;
         var left = ($(window).width() - totalWidthChart)/2;
 

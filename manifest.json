@@ -1,18 +1,17 @@
 {
     "manifest_version": 2,
 
-    "name": "Productive You",
+    "name": "Chronus",
     "description": "This extension aims at improving the productivity of the user",
     "version": "0.0.8",
 
-    "icons":{"128": "images/icon.png"},
 
     "background": {
         "scripts": ["js/background.js" , "js/jquery.min.js"]
     },
 
     "chrome_url_overrides":{
-        "newtab" : "popup.html"
+        "newtab" : "index.html"
     },
 
     "permissions": [
