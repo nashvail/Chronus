@@ -45,6 +45,7 @@ chrome.runtime.onInstalled.addListener(function(details){
         data[todayStorageName] = totalTimeOnWebsites;
         data["today"] = numDaysSinceUTC();
         data["trackData"] = JSON.stringify(websitesToTrack);
+        data["sitesLocked"] = false;
         chrome.storage.local.set(data, function(){});
     }
 });
@@ -203,9 +204,11 @@ function extractDomain(str) {
 * -------------------------------
 * Returns the amount of time in seconds spent on 
 * the website www.twitter.com and www.facebook.com
+* NOTE : The extension has evolved and now it returns the total 
+* time spent on all the tracked sites.
 */
 
-function getTimeOnFbTwitter(){
+function getTotalTime(){
     return totalTimeOnWebsites;
 }
 

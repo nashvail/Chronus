@@ -1,14 +1,13 @@
 // Stores the width of each bar in pixels
 var barWidth = 15;
-// Stores the spacing between each line bar in pixels
-var barSpacing = 10;
 
 
 // Quotes about wastage of time
 var timeQuotes = ["when you kill time, remember that it has no resurrection", 
     "the trouble is, you think you have time",
     "time is what we want most, but what we use worst",
-    "wasting your time is the subtlest form of suicide"
+    "wasting your time is the subtlest form of suicide",
+    "It is your life, and its ending one minute at a time"
 ];
 
 $(document).ready(function(){
@@ -18,24 +17,32 @@ $(document).ready(function(){
       backgroundPage = chrome.extension.getBackgroundPage();  
     }
 
-    if(backgroundPage !== null && backgroundPage.isFirstRun) {
-        $('.settingsPanel').addClass('is-visible');
-        $('.tracksiteInput').addClass('inputEnabled');
-        $('.settingsContainer').append("<img src = \"images/button_OK.png\" class = \"done\">");
-    } else {
-        $('.done').remove();
-        $('.tracksiteInput').css({"border": "none"});
-        $('.tracksiteInput').prop("disabled", true);
-        $('.tracksiteInput').addClass('inputDisabled');
-        $('.settingsContainer').append("<img src = \"images/button_EDIT.png\" class = \"editBtn\">");
-    }
+    chrome.storage.local.get("sitesLocked", function(result){
+        if(backgroundPage !== null && backgroundPage.isFirstRun) {
+            $('.settingsPanel').addClass('is-visible');
+            $('.tracksiteInput').addClass('inputEnabled');
+            $('.lockBtn').remove();
+            $('.buttonsContainer').append("<img src = \"images/button_OK.png\" class = \"done\">");
+            $('.done').css({"float" : "none" , "margin" : "0 auto"})
+        }else if(result.sitesLocked){
+            //remove all the buttons 
+            $('.done').remove();
+            $('.editBtn').remove();
+            $('.lockBtn').remove();
+            $('.tracksiteInput').removeClass("inputEnabled");
+            $('.tracksiteInput').addClass("inputDisabled");
+            $('.tracksiteInput').prop("disabled", true);
+        } else {
+            $('.done').remove();
+            $('.tracksiteInput').css({"border": "none"});
+            $('.tracksiteInput').prop("disabled", true);
+            $('.tracksiteInput').removeClass('inputEnabled');
+            $('.tracksiteInput').addClass('inputDisabled');
+            $('.buttonsContainer').append("<img src = \"images/button_EDIT.png\" class = \"editBtn\">");
+        }
 
-    $('.editBtn').on('click', function(){
-        $('.tracksiteInput').prop("disabled", false);
-        $('.tracksiteInput').addClass("inputEnabled");
-        $('.editBtn').remove();
-        $('.settingsContainer').append("<img src = \"images/button_OK.png\" class = \"done\">");
     });
+
 
     // Try to update the data from the localStorage if we can about the sites that are being tracked
     if(chrome.extension.getBackgroundPage().isFirstRun){
@@ -73,11 +80,14 @@ $(document).ready(function(){
         $('.settingsPanel').addClass('is-visible');
     });
 
+
     $('.settingsPanel').on('click', function(event){
         // This function registers click on the side panel
         if($(event.target).is('.done')) { 
-            $('.settingsPanel').removeClass('is-visible');
             $('.editBtn').remove();
+            if(chrome.extension.getBackgroundPage().isFirstRun){
+                $('.settingsPanel').removeClass('is-visible');
+            }
 
             var firstSiteBeingTracked = document.getElementById("firstSite").value;
             var secondSiteBeingTracked = document.getElementById("secondSite").value;
@@ -91,21 +101,78 @@ $(document).ready(function(){
             chrome.storage.local.set({"trackData" : sitesBeingTrackedStorable}, function(){});
             chrome.extension.getBackgroundPage().isFirstRun = false;
             $('.tracksiteInput').removeClass('inputEnabled');
+            $('.tracksiteInput').addClass('inputSaved');
+            var delay = 300;
+            setTimeout(function() {
+                $('.tracksiteInput').removeClass('inputSaved');
+            }, delay);
             $('.tracksiteInput').addClass('inputDisabled');
             $('.tracksiteInput').prop("disabled", true);
             $('.done').remove();
-            $('.settingsContainer').append("<img src = \"images/button_EDIT.png\" class = \"editBtn\">").on('click', function(){
+            $('.lockBtn').remove();
+            $('.buttonsContainer').append("<img src = \"images/button_EDIT.png\" class = \"editBtn\">").on('click', function(){
                 $('.tracksiteInput').prop("disabled", false);
+                $('.tracksiteInput').removeClass('inputDisabled');
                 $('.tracksiteInput').addClass("inputEnabled");
                 $('.done').remove();
                 $('.editBtn').remove();
-                $('.settingsContainer').append("<img src = \"images/button_OK.png\" class = \"done\">");
+                $('.lockBtn').remove();
+                $('.buttonsContainer').append("<img src = \"images/button_LOCK.png\" class = \"lockBtn\"><img src = \"images/button_OK.png\" class = \"done\">");
             });
 
         }
 
         if($(event.target).is('.settingsPanel') && !chrome.extension.getBackgroundPage().isFirstRun) {
-            $('.settingsPanel').removeClass('is-visible');
+            chrome.storage.local.get("sitesLocked", function(result){
+                if(!result.sitesLocked) {
+                    $('.settingsPanel').removeClass('is-visible');
+                    $('.editBtn').remove();
+                    $('.tracksiteInput').removeClass('inputEnabled');
+                    $('.tracksiteInput').addClass('inputDisabled');
+                    $('.tracksiteInput').prop("disabled", true);
+                    $('.done').remove();
+                    $('.lockBtn').remove();
+                    $('.buttonsContainer').append("<img src = \"images/button_EDIT.png\" class = \"editBtn\">").on('click', function(){
+                        $('.tracksiteInput').prop("disabled", false);
+                        $('.tracksiteInput').addClass("inputEnabled");
+                        $('.done').remove();
+                        $('.editBtn').remove();
+                        $('.lockBtn').remove();
+                        $('.buttonsContainer').append("<img src = \"images/button_LOCK.png\" class = \"lockBtn\"><img src = \"images/button_OK.png\" class = \"done\">");
+                    });
+                }else{
+                    $('.settingsPanel').removeClass('is-visible');
+                }
+
+            });
+        }
+
+        if($(event.target).is('.lockBtn')) {
+            vex.defaultOptions.className = 'vex-theme-top';
+            vex.dialog.confirm({
+                message: 'You sure? <br/> <br/> Clicking OK will permanently lock list of your choices, disallowing any further edits. <br/> You cannot undo this action.',
+                callback : function(value){
+                    if(value){
+                        chrome.storage.local.set({"sitesLocked" : true}, function(){});
+                        $('.editBtn').remove();
+                        $('.lockBtn').remove();
+                        $('.done').remove();
+                        $('.tracksiteInput').removeClass("inputEnabled");
+                        $('.tracksiteInput').addClass("inputDisabled");
+                        $('.tracksiteInput').prop("disabled", true);
+                    }
+                }
+            });
+        }
+
+        if($(event.target).is('.editBtn')){
+            $('.tracksiteInput').prop("disabled", false);
+            $('.tracksiteInput').removeClass('inputDisabled');
+            $('.tracksiteInput').addClass("inputEnabled");
+            $('.editBtn').remove();
+            $('.lockBtn').remove();
+            $('.done').remove();
+            $('.buttonsContainer').append("<img src = \"images/button_LOCK.png\" class = \"lockBtn\"><img src = \"images/button_OK.png\" class = \"done\">");
         }
     });
 
@@ -141,7 +208,6 @@ $(document).ready(function(){
             }
         }
 
-        console.log(forValues.toString());
 
         var barChartData = {
                 labels : [].concat(forLabels),
@@ -165,11 +231,11 @@ $(document).ready(function(){
             scaleShowGridLines : false,
             showScale : false,
             showTooltips :false,
-            barValueSpacing  : 13
+            barValueSpacing  : 5
         });
 
         var totalWidthBars = barWidth * barChartData.getNumData();
-        var totalWidthSpacing = barSpacing * (barChartData.getNumData() - 1);
+        var totalWidthSpacing = 8 * (barChartData.getNumData() - 1);
         var totalWidthChart = totalWidthBars + totalWidthSpacing;
         var left = ($(window).width() - totalWidthChart)/2;
 

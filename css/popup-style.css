@@ -128,7 +128,7 @@ h1{
   -webkit-transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;
   transition-duration: 0.3s;
-
+  overflow-y : scroll;
 }
 .from-left .settingsContainer {
   left: 0;
@@ -173,6 +173,7 @@ h1{
   border : none;
   text-align: center;
   transition: all 0.2s;
+  background-color : transparent;
 }
 .inputDisabled{
   background-color : rgba(255, 255, 255, 0.5);
@@ -185,20 +186,53 @@ h1{
   box-shadow : 0px 2px 2px rgba(0,0,0,0.2);
 }
 
+.inputSaved {
+  background-color :#2ecc71;
+  color : white;
+}
+
 .tracksiteInput:focus {
   outline : none;
 }
 
-.done {
-  display : block;
-  margin : 80px auto 0px auto;
-  cursor : pointer;
+.buttonsContainer {
+  width : 100%;
+  height : auto;
+  margin-top: 50px;
 }
 
-.editBtn {
+#secondSite {
+  transition-delay : 0.08s;
+}
+
+#thirdSite{
+  transition-delay : 0.085s;
+}
+#fourthSite{
+  transition-delay : 0.095s;
+}
+#fifthSite{
+  transition-delay : 0.15s;
+}
+.done {
   display : block;
   cursor : pointer;
-  margin : 80px auto 0px auto;
+  float : right;
+  margin-right: 37%;
+}
+
+.lockBtn{
+  display : block;
+  float : left;
+  cursor : pointer;
+  margin-left: 37%;
+}
+
+
+.editBtn {
+  display :block;
+  cursor : pointer;
+  margin : 0px auto 0px auto;
 }
 
 

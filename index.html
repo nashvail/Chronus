@@ -3,7 +3,10 @@
     <head>
         <title>New Tab</title>
         <link rel="stylesheet" href="css/popup-style.css">
+        <!-- Font awesome is required for the little settings icon on the top left -->
         <link rel="stylesheet" href="font-awesome-4.1.0/css/font-awesome.css">
+        <link rel="stylesheet" href="css/vex.css" />
+        <link rel="stylesheet" href="css/vex-theme-top.css"/>
     </head>
     <body>
         <i class="fa fa-ellipsis-v settings"></i>
@@ -15,7 +18,7 @@
                 <input type="text" class="tracksiteInput" id = "thirdSite">
                 <input type="text" class="tracksiteInput" id = "fourthSite">
                 <input type="text" class="tracksiteInput" id = "fifthSite">
-
+                <div class="buttonsContainer"></div>
             </div>  
         </div>
         <div class="container">
@@ -25,7 +28,8 @@
             <canvas id = "myChart"></canvas>
         </div>
         <script src="js/jquery.min.js"></script>
-        <script src="js/popup.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/vex.combined.min.js"></script>
         <script src="Chart.js" ></script>
     </body>
 </html>
