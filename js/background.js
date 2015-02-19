@@ -204,11 +204,9 @@ function extractDomain(str) {
 * -------------------------------
 * Returns the amount of time in seconds spent on 
 * the website www.twitter.com and www.facebook.com
-* NOTE : The extension has evolved and now it returns the total 
-* time spent on all the tracked sites.
 */
 
-function getTotalTime(){
+function getTimeOnFbTwitter(){
     return totalTimeOnWebsites;
 }
 

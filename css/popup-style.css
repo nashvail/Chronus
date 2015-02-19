@@ -127,7 +127,7 @@ h1{
   -webkit-transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;
   transition-duration: 0.3s;
-  overflow-y : scroll;
+
 }
 .from-left .settingsContainer {
   left: 0;

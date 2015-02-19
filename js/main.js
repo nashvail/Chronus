@@ -1,13 +1,14 @@
 // Stores the width of each bar in pixels
 var barWidth = 15;
+// Stores the spacing between each line bar in pixels
+var barSpacing = 10;
 
 
 // Quotes about wastage of time
 var timeQuotes = ["when you kill time, remember that it has no resurrection", 
     "the trouble is, you think you have time",
     "time is what we want most, but what we use worst",
-    "wasting your time is the subtlest form of suicide",
-    "It is your life, and its ending one minute at a time"
+    "wasting your time is the subtlest form of suicide"
 ];
 
 $(document).ready(function(){
@@ -231,11 +232,11 @@ $(document).ready(function(){
             scaleShowGridLines : false,
             showScale : false,
             showTooltips :false,
-            barValueSpacing  : 5
+            barValueSpacing  : 13
         });
 
         var totalWidthBars = barWidth * barChartData.getNumData();
-        var totalWidthSpacing = 8 * (barChartData.getNumData() - 1);
+        var totalWidthSpacing = barSpacing * (barChartData.getNumData() - 1);
         var totalWidthChart = totalWidthBars + totalWidthSpacing;
         var left = ($(window).width() - totalWidthChart)/2;
 
