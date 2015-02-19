@@ -121,6 +121,7 @@ h1{
   top: 0;
   background: #f0f0f0;
   z-index: 1;
+  overflow-y : scroll;
   -webkit-transition-property: -webkit-transform;
   -moz-transition-property: -moz-transform;
   transition-property: transform;
