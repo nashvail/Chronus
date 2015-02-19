@@ -1,0 +1,239 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400);
+/* reset browser styles */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  box-sizing : border-box;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1.2;
+}
+ol { 
+  padding-left: 1.4em;
+  list-style: decimal;
+}
+ul {
+  padding-left: 1.4em;
+  list-style: square;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+} 
+
+h1{
+  font-family : "Arial", "Helvetica-Light" , "Lato";
+  font-weight : 300;
+  font-size:  20px;
+  color : #ccc;
+  margin : 20px 0px 20px 0px;
+  vertical-align: 50%;
+  text-align: center;
+}
+
+#actualTime{
+  font-family:"HelveticaNeue-Light" ,"Arial";
+  font-weight: 400;
+  font-size: 36px;
+  color: #323232;
+  line-height: 26px;
+  text-align: center;
+  vertical-align: middle;
+  padding : 20px;
+}
+
+#myChart {
+  position : absolute;
+  bottom : 0;
+  height : 60%;
+  z-index : -999;
+}
+
+.settingsPanelShowing {
+  margin-left : 200px;
+}
+
+
+/* For the settings and other stuff */
+.settings {
+  position : absolute;
+  padding : 20px;
+  top : 0;
+  left : 0;
+  color : #f0f0f0;
+  cursor : pointer;
+  font-size : 2em;
+}
+
+
+/* animations for the sidebar */
+.settingsPanel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  visibility: hidden;
+  -webkit-transition: visibility 0s 0.6s;
+  -moz-transition: visibility 0s 0.6s;
+  transition: visibility 0s 0.6s;
+  z-index : 999;
+}
+
+.settingsPanel::after {
+  /* overlay layer */
+  content : '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  -webkit-transition: background 0.3s;
+  -moz-transition: background 0.3s;
+  transition: background 0.3s;
+}
+
+
+.settingsPanel.is-visible {
+  visibility: visible;
+  -webkit-transition: visibility 0s 0s;
+  -moz-transition: visibility 0s 0s;
+  transition: visibility 0s 0s;
+}
+.settingsPanel.is-visible::after {
+  background : rgba(255, 255, 255 ,1);
+}
+
+.settingsContainer {
+  position: fixed;
+  width: 40%;
+  height: 100%;
+  top: 0;
+  background: #f0f0f0;
+  z-index: 1;
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+
+}
+.from-left .settingsContainer {
+  left: 0;
+  -webkit-transform: translate3d(-100%, 0, 0);
+  -moz-transform: translate3d(-100%, 0, 0);
+  -ms-transform: translate3d(-100%, 0, 0);
+  -o-transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-100%, 0, 0);
+}
+.is-visible .settingsContainer {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  transition-delay: 0s;
+}
+
+.settingsHeader {
+  font-family : "Arvo", "HelveticaNeue", "Lato";
+  padding : 20px;
+  text-align: center;
+  font-weight: 700;
+  color: #323232;
+  font-size : 1.3em;
+  margin-top : 30px;
+  margin-bottom : 50px;
+  letter-spacing : 1.2px;
+}
+
+.tracksiteInput {
+  margin : 40px auto 50px auto;
+  display : block;
+  width : 55%;
+  height : 45px;
+  font-family: "Lato";
+  font-weight: 300;
+  font-size : 1.5em;
+  padding : 0;
+  border : none;
+  text-align: center;
+  transition: all 0.2s;
+  background-color : transparent;
+}
+.inputDisabled{
+  background-color : rgba(255, 255, 255, 0.5);
+  border-radius : 3px;
+}
+
+.inputEnabled{
+  background-color : rgba(255, 255, 255, 1);
+  border-radius : 3px;
+  box-shadow : 0px 2px 2px rgba(0,0,0,0.2);
+}
+
+.inputSaved {
+  background-color :#2ecc71;
+  color : white;
+}
+
+.tracksiteInput:focus {
+  outline : none;
+}
+
+.buttonsContainer {
+  width : 100%;
+  height : auto;
+  margin-top: 50px;
+}
+
+#secondSite {
+  transition-delay : 0.08s;
+}
+
+#thirdSite{
+  transition-delay : 0.085s;
+}
+#fourthSite{
+  transition-delay : 0.095s;
+}
+#fifthSite{
+  transition-delay : 0.15s;
+}
+.done {
+  display : block;
+  cursor : pointer;
+  float : right;
+  margin-right: 37%;
+}
+
+.lockBtn{
+  display : block;
+  float : left;
+  cursor : pointer;
+  margin-left: 37%;
+}
+
+
+.editBtn {
+  display :block;
+  cursor : pointer;
+  margin : 0px auto 0px auto;
+}
+
+
+
+
