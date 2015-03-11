@@ -5,10 +5,17 @@ var barSpacing = 10;
 
 
 // Quotes about wastage of time
-var timeQuotes = ["when you kill time, remember that it has no resurrection", 
+var timeQuotes = [
+    "when you kill time, remember that it has no resurrection",
     "the trouble is, you think you have time",
     "time is what we want most, but what we use worst",
-    "wasting your time is the subtlest form of suicide"
+    "wasting your time is the subtlest form of suicide",
+    "procrastination is the foundation of all disasters",
+    "the bad news is time flies. the good news is you're the pilot",
+    "there is only now. and look! how rich we are in it",
+    "the problem with procrastination is it’s been around since the beginning of time it seems",
+    "you can't make up for lost time. you can only do better in the future",
+    "if you want to have the time of your life, change how you use the time in your life"
 ];
 
 $(document).ready(function(){
