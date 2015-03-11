@@ -15,7 +15,15 @@ var timeQuotes = [
     "there is only now. and look! how rich we are in it",
     "the problem with procrastination is it’s been around since the beginning of time it seems",
     "you can't make up for lost time. you can only do better in the future",
-    "if you want to have the time of your life, change how you use the time in your life"
+    "if you want to have the time of your life, change how you use the time in your life",
+    "make today count and but don't let the day count you",
+    "if you wouldn't get up early for it, you shouldn't stay up late to do it",
+    "you can manage your life by only your time",
+    "it is not the time for you to dream, it is the time for you to accomplish the mission",
+    "let no body lie you that there is a future other than a moment you are able to walk and talk",
+    "time is much more valuable than money",
+    "when life brings you mountains, you don’t waste your time asking why; you spend your time climbing over them",
+    "if time were to take on human form, would she be your taskmaster or freedom fighter?"
 ];
 
 $(document).ready(function(){
