@@ -66,7 +66,7 @@ function startUp() {
     chrome.storage.local.get(null, function(result){
         totalTimeOnWebsites = result["timeData" + numDaysSinceUTC()];
         today = result["today"];
-        websitesToTrack = JSON.parse(result.trackData);
+        websitesToTrack = (result.trackData);
     });
     // Updating the ActiveTabUrl during initialization
     updateActiveTabUrl();
